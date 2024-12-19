@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import random
 
 app = Flask(__name__)
+CORS(app)
 
 questions = [
     {
