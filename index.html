@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quiz App</title>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>Quiz App</h1>
+<div id="quiz"></div>
+<button onclick="getQuestions()">Start Quiz</button>
+<script>
+function getQuestions() {
+    axios.get('/.netlify/functions/quiz')
+        .then(function (response) {
+            const quizDiv = document.getElementById('quiz');
+            quizDiv.innerHTML = '';
+            response.data.forEach((q, index) => {
+                const qText = document.createElement('p');
+                qText.innerText = `${index + 1}. ${q.question}`;
+                const options = q.options.map(option => `<button onclick="alert('${option === q.answer}')">${option}</button>`).join('<br>');
+                quizDiv.innerHTML += qText.outerHTML + options + '<br>';
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+</script>
+</body>
+</html>
