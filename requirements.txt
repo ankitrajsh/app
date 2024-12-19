@@ -1,2 +1,2 @@
-Flask
+pip install flask-cors
 gunicorn
