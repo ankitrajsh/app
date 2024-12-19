@@ -9,23 +9,20 @@
 <h1>Quiz App</h1>
 <div id="quiz"></div>
 <button onclick="getQuestions()">Start Quiz</button>
+<button onclick="getQuestions()">Start Quiz</button>
 <script>
 function getQuestions() {
     axios.get('/.netlify/functions/quiz')
-        .then(function (response) {
-            const quizDiv = document.getElementById('quiz');
-            quizDiv.innerHTML = '';
-            response.data.forEach((q, index) => {
-                const qText = document.createElement('p');
-                qText.innerText = `${index + 1}. ${q.question}`;
-                const options = q.options.map(option => `<button onclick="alert('${option === q.answer}')">${option}</button>`).join('<br>');
-                quizDiv.innerHTML += qText.outerHTML + options + '<br>';
-            });
+        .then(function(response) {
+            console.log(response); // Check what the response from the server is
+            // Process and display your questions here
         })
-        .catch(function (error) {
-            console.log(error);
+        .catch(function(error) {
+            console.error('Error fetching questions:', error);
+            alert('Failed to start quiz. See console for details.');
         });
 }
 </script>
+
 </body>
 </html>
